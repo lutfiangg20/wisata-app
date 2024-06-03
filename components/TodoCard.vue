@@ -1,11 +1,11 @@
 <template>
   <UCard class="dark:border-green-600 dark:border-2 w-max">
     <template #header>
-      <Placeholder class="h-8" />
+      <!--  <Placeholder class="h-8" /> -->
       <label class="font-bold">{{ title }}</label>
     </template>
 
-    <Placeholder class="h-32" />
+    <!--  <Placeholder class="h-32" /> -->
     <div class="flex justify-end gap-2 mb-5">
       <label for="">Sort</label>
       <USelect v-model="selected" :options="options" @change="handleSort" />

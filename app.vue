@@ -63,7 +63,7 @@
               ><i class="fa-solid fa-trash"></i
             ></UButton>
           </div>
-          <Placeholder class="h-48" />
+          <!-- <Placeholder class="h-48" /> -->
           <div class="mb-2">
             <label for=""> Title </label>
             <UInput v-model="formEdit.title" :value="formEdit.title" />
