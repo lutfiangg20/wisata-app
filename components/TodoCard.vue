@@ -1,13 +1,21 @@
 <template>
-  <UCard>
+  <UCard class="dark:border-green-600 dark:border-2">
     <template #header>
       <Placeholder class="h-8" />
-      <label>{{ title }}</label>
+      <label class="font-bold">{{ title }}</label>
     </template>
 
     <Placeholder class="h-32" />
+    <div class="flex justify-end gap-2 mb-5">
+      <label for="">Sort</label>
+      <USelect v-model="selected" :options="options" @change="handleSort" />
+    </div>
 
-    <UCard v-for="item in data" :key="item.id">
+    <UCard
+      v-for="item in data"
+      :key="item.id"
+      class="mb-2 dark:border-green-600 dark:border-2"
+    >
       <div class="flex justify-between gap-10">
         <div>
           <span>
@@ -32,7 +40,9 @@
           ></UButton>
         </div>
       </div>
-      <UButton v-if="item.complete" class="mt-2 flex items-center gap-4"
+      <UButton
+        v-if="item.complete"
+        class="mt-2 flex items-center gap-4 rounded-sm"
         ><i class="fa-regular fa-square-check"></i>
         <span>
           {{ formattedDate(item.due_date) }}
@@ -45,10 +55,10 @@
     </UCard>
 
     <div class="flex justify-center">
-      <UButton class="my-2" @click="handleAdd" v-if="!add"
+      <UButton class="my-5" @click="handleAdd" v-if="!add"
         ><i class="fa-solid fa-plus"></i> Add a card</UButton
       >
-      <UButton class="my-2" @click="handleClose" v-if="add"
+      <UButton class="my-5" @click="handleClose" v-if="add"
         ><i class="fa-solid fa-xmark"></i
       ></UButton>
     </div>
@@ -61,6 +71,8 @@ const { title, data, isOpen } = defineProps(["title", "data", "isOpen"]);
 
 const add = ref(false);
 const cardTitle = ref("");
+const selected = ref("");
+const options = ref(["Name", "Created", "Due Date"]);
 
 //format date day and month only
 const formattedDate = (date) => {
@@ -75,11 +87,21 @@ const handleClose = () => {
   cardTitle.value = "";
 };
 
-const emit = defineEmits(["openModal", "addData", "moveRight", "moveLeft"]);
+const emit = defineEmits([
+  "openModal",
+  "addData",
+  "moveRight",
+  "moveLeft",
+  "handleSort",
+]);
 
 const handleSubmit = () => {
   emit("addData", title, cardTitle.value);
   add.value = false;
   cardTitle.value = "";
+};
+
+const handleSort = () => {
+  emit("handleSort", title, selected.value.toLocaleLowerCase());
 };
 </script>
