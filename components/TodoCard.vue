@@ -58,9 +58,14 @@
       <UButton class="my-5" @click="handleAdd" v-if="!add"
         ><i class="fa-solid fa-plus"></i> Add a card</UButton
       >
-      <UButton class="my-5" @click="handleClose" v-if="add"
-        ><i class="fa-solid fa-xmark"></i
-      ></UButton>
+      <div class="flex gap-2" v-if="add">
+        <UButton class="my-5" @click="handleClose"
+          ><i class="fa-solid fa-xmark"></i
+        ></UButton>
+        <UButton class="my-5" @click="handleSubmit"
+          ><i class="fa-solid fa-check"></i
+        ></UButton>
+      </div>
     </div>
   </UCard>
 </template>
