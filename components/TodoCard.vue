@@ -18,7 +18,7 @@
     >
       <div class="flex justify-between gap-10">
         <div>
-          <span>
+          <span class="truncate">
             {{ item.title }}
           </span>
         </div>
