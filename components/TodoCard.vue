@@ -51,16 +51,23 @@
     </UCard>
 
     <UCard v-if="add">
-      <UInput v-model="cardTitle" @keyup.enter="handleSubmit" />
+      <form @submit.prevent="handleSubmit">
+        <UInput v-model="cardTitle" @keyup.enter="handleSubmit" />
+      </form>
     </UCard>
 
     <div class="flex justify-center">
       <UButton class="my-5" @click="handleAdd" v-if="!add"
         ><i class="fa-solid fa-plus"></i> Add a card</UButton
       >
-      <UButton class="my-5" @click="handleClose" v-if="add"
-        ><i class="fa-solid fa-xmark"></i
-      ></UButton>
+      <div class="flex gap-2" v-if="add">
+        <UButton class="my-5" @click="handleClose" size="lg"
+          ><i class="fa-solid fa-xmark"></i
+        ></UButton>
+        <UButton class="my-5" @click="handleSubmit" size="lg">
+          <i class="fa-solid fa-check"></i
+        ></UButton>
+      </div>
     </div>
   </UCard>
 </template>
