@@ -1,9 +1,7 @@
 <template>
   <div class="h-screen dark:accent-slate-900">
     <div class="flex justify-between p-2">
-      <div for="" class="flex justify-center">
-        <a href="/" class="text-3xl font-bold">Todo App</a>
-      </div>
+      <a href="/" class="text-3xl font-bold">Todo App</a>
       <div class="flex justify-end gap-2">
         <label for="">Theme</label>
         <USelect
