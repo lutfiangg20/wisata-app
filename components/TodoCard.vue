@@ -18,9 +18,6 @@
       @dragstart="startDrag($event, item)"
       @drop="endDrag($event, item)"
       @dragover="handleDragOver($event)"
-      @touchstart="startDrag($event, item)"
-      @touchmove="handleDragOver($event)"
-      @touchend="endDrag($event, item)"
       class="mb-2 dark:border-green-600 dark:border-2"
     >
       <div class="flex justify-between gap-10">
