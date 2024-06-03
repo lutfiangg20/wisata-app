@@ -48,6 +48,14 @@
             :value="formEdit.description"
           />
         </div>
+        <div class="mb-2">
+          <label for="">Due Date</label>
+          <div class="flex gap-2 items-center">
+            <UCheckbox @change="checkDate" :model-value="formEdit.complete" />
+            <UInput type="date" v-model="formEdit.due_date" />
+            <UButton v-if="formEdit.complete">Complete</UButton>
+          </div>
+        </div>
         <div class="flex justify-end mt-2">
           <UButton type="submit">Submit</UButton>
         </div>
@@ -58,6 +66,7 @@
 
 <script setup>
 import { createClient } from "@supabase/supabase-js";
+
 const todo = ref([]);
 const doing = ref([]);
 const done = ref([]);
@@ -66,7 +75,10 @@ const formEdit = reactive({
   id: "",
   title: "",
   description: "",
+  complete: false,
+  due_date: "",
 });
+const date = ref(new Date());
 
 const isOpenModal = ref(false);
 
@@ -113,6 +125,8 @@ const openModal = (value, id) => {
   formEdit.id = edit.value.id;
   formEdit.title = edit.value.title;
   formEdit.description = edit.value.description;
+  formEdit.due_date = edit.value.due_date;
+  formEdit.complete = edit.value.complete;
 };
 
 const addData = async (title, cardTitle) => {
@@ -133,6 +147,8 @@ const handleUpdate = async () => {
     .update({
       title: formEdit.title,
       description: formEdit.description,
+      due_date: formEdit.due_date,
+      complete: formEdit.complete,
     })
     .eq("id", edit.value.id)
     .then(() => {
@@ -150,6 +166,10 @@ const handleDelete = async () => {
       getData();
       isOpenModal.value = false;
     });
+};
+
+const checkDate = () => {
+  formEdit.complete = !formEdit.due_date;
 };
 
 const moveRight = async (title, id) => {

@@ -9,9 +9,11 @@
 
     <UCard v-for="item in data" :key="item.id">
       <div class="flex justify-between gap-10">
-        <span>
-          {{ item.title }}
-        </span>
+        <div>
+          <span>
+            {{ item.title }}
+          </span>
+        </div>
         <div class="flex gap-2">
           <UButton
             v-if="title !== 'TODO'"
@@ -30,6 +32,12 @@
           ></UButton>
         </div>
       </div>
+      <UButton v-if="item.complete" class="mt-2 flex items-center gap-4"
+        ><i class="fa-regular fa-square-check"></i>
+        <span>
+          {{ formattedDate(item.due_date) }}
+        </span>
+      </UButton>
     </UCard>
 
     <UCard v-if="add">
@@ -48,11 +56,16 @@
 </template>
 
 <script setup>
+import moment from "moment";
 const { title, data, isOpen } = defineProps(["title", "data", "isOpen"]);
 
 const add = ref(false);
 const cardTitle = ref("");
 
+//format date day and month only
+const formattedDate = (date) => {
+  return moment(date).format("DD MMM");
+};
 const handleAdd = () => {
   add.value = true;
 };
