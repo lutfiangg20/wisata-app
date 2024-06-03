@@ -1,5 +1,5 @@
 <template>
-  <UCard class="dark:border-green-600 dark:border-2">
+  <UCard class="dark:border-green-600 dark:border-2 w-max">
     <template #header>
       <Placeholder class="h-8" />
       <label class="font-bold">{{ title }}</label>
@@ -18,6 +18,9 @@
       @dragstart="startDrag($event, item)"
       @drop="endDrag($event, item)"
       @dragover="handleDragOver($event)"
+      @touchstart="startDrag($event, item)"
+      @touchmove="handleDragOver($event)"
+      @touchend="endDrag($event, item)"
       class="mb-2 dark:border-green-600 dark:border-2"
     >
       <div class="flex justify-between gap-10">
