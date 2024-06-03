@@ -12,8 +12,12 @@
     </div>
 
     <UCard
+      draggable="true"
       v-for="item in data"
       :key="item.id"
+      @dragstart="startDrag($event, item)"
+      @drop="endDrag($event, item)"
+      @dragover="handleDragOver($event)"
       class="mb-2 dark:border-green-600 dark:border-2"
     >
       <div class="flex justify-between gap-10">
@@ -92,12 +96,33 @@ const handleClose = () => {
   cardTitle.value = "";
 };
 
+const startDrag = (e, item) => {
+  console.log("start", item);
+  e.dataTransfer.dropEffect = "move";
+  e.dataTransfer.effectAllowed = "move";
+  e.dataTransfer.setData("itemId", item.id);
+};
+
+const endDrag = (e, item) => {
+  const itemId = e.dataTransfer.getData("itemId");
+  const toDrag = item;
+  emit("endDrag", toDrag, itemId);
+  /* if (itemId !== item.id) {
+    emit("endDrag", title, selected.value.toLocaleLowerCase());
+  } */
+};
+
+const handleDragOver = (e) => {
+  e.preventDefault();
+};
+
 const emit = defineEmits([
   "openModal",
   "addData",
   "moveRight",
   "moveLeft",
   "handleSort",
+  "endDrag",
 ]);
 
 const handleSubmit = () => {

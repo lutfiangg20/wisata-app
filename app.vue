@@ -30,6 +30,7 @@
           @add-data="addData"
           @move-right="moveRight"
           @handle-sort="handleSort"
+          @end-drag="endDrag"
         />
         <TodoCard
           title="DOING"
@@ -40,6 +41,7 @@
           @move-right="moveRight"
           @move-left="moveLeft"
           @handle-sort="handleSort"
+          @end-drag="endDrag"
         />
         <TodoCard
           title="DONE"
@@ -49,6 +51,7 @@
           @add-data="addData"
           @move-left="moveLeft"
           @handle-sort="handleSort"
+          @end-drag="endDrag"
         />
       </div>
     </UContainer>
@@ -304,6 +307,21 @@ const moveLeft = async (title, id) => {
       updated_at: new Date(),
     })
     .eq("id", id)
+    .then(() => {
+      getData();
+    });
+};
+
+const endDrag = async (toDrag, itemId) => {
+  console.log("toDrag", toDrag.status);
+  console.log("itemId", itemId);
+  await supabase
+    .from("todo")
+    .update({
+      status: toDrag.status,
+      updated_at: new Date(),
+    })
+    .eq("id", itemId)
     .then(() => {
       getData();
     });
